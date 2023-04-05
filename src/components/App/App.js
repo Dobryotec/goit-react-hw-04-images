@@ -20,11 +20,11 @@ export default function App() {
   useEffect(() => {
     const trimmedSearchText = searchText.trim();
     if (trimmedSearchText) {
-      download(trimmedSearchText);
+      downloadImages(trimmedSearchText);
     }
   }, [searchText, page]);
 
-  function download() {
+  function downloadImages() {
     setIsLoading(true);
     try {
       fetchImages(searchText, page)
