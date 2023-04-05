@@ -18,7 +18,6 @@ export default function App() {
   const [showBtn, setShowBtn] = useState(true);
 
   useEffect(() => {
-    const trimmedSearchText = searchText.trim();
     function downloadImages() {
       setIsLoading(true);
       try {
@@ -37,8 +36,8 @@ export default function App() {
         console.error('Error fetching images:', error);
       }
     }
-    if (trimmedSearchText) {
-      downloadImages(trimmedSearchText);
+    if (searchText) {
+      downloadImages(searchText);
     }
   }, [searchText, page]);
 

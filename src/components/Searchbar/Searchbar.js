@@ -8,8 +8,10 @@ export default function Searchbar({ createSearchText }) {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    createSearchText(value);
-    setValue('');
+    if (value.trim() !== '') {
+      createSearchText(value);
+      setValue('');
+    }
   };
 
   return (
