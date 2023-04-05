@@ -19,29 +19,28 @@ export default function App() {
 
   useEffect(() => {
     const trimmedSearchText = searchText.trim();
+    function downloadImages() {
+      setIsLoading(true);
+      try {
+        fetchImages(searchText, page)
+          .then(({ hits }) => {
+            setImages(prevImages => [...prevImages, ...hits]);
+            setShowBtn(hits.length >= 12);
+          })
+          .catch(error => {
+            console.error('Error fetching images:', error);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    }
     if (trimmedSearchText) {
       downloadImages(trimmedSearchText);
     }
   }, [searchText, page]);
-
-  function downloadImages() {
-    setIsLoading(true);
-    try {
-      fetchImages(searchText, page)
-        .then(({ hits }) => {
-          setImages(prevImages => [...prevImages, ...hits]);
-          setShowBtn(hits.length >= 12);
-        })
-        .catch(error => {
-          console.error('Error fetching images:', error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } catch (error) {
-      console.error('Error fetching images:', error);
-    }
-  }
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
